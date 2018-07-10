@@ -2,7 +2,7 @@
 
 > npm install 
 
-> npm start
+> npm run build
 
 > bundle some files in /dist
 

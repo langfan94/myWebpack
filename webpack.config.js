@@ -1,14 +1,21 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const devMode = process.env.NODE_ENV !== 'production'
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const devMode = process.env.NODE_ENV !== 'production';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './'
+    },
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
     plugins: [
+        new CleanWebpackPlugin(['dist']),
         new MiniCssExtractPlugin({
           // Options similar to the same options in webpackOptions.output
           // both options are optional
@@ -28,15 +35,6 @@ module.exports = {
                 use: [
                     devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
-                    // { 
-                    //     loader: 'postcss-loader', 
-                    //     options: { 
-                    //         ident: 'postcss',
-                    //         plugins: () => [
-                    //         require('autoprefixer')(),
-                    //         ]
-                    //     } 
-                    // },
                     'postcss-loader',
                     'sass-loader',
                 ]
