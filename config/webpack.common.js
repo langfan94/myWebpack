@@ -3,16 +3,15 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
+
+
 module.exports = {
     entry: './src/index.js',
-    devtool: 'inline-source-map',
-    devServer: {
-        contentBase: './'
-    },
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/'
+        path: path.resolve(__dirname, '../dist'),
+        publicPath: './'
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
@@ -26,7 +25,9 @@ module.exports = {
             filename: '../dist/index.html',
             template: 'index.html',
             inject: true
-        })
+        }),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
     module: {
         rules: [
