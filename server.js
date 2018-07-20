@@ -8,7 +8,8 @@ const options = {
   contentBase: './',
   hot: true,
   host: 'localhost',
-  port: port
+  port: port,
+  noInfo: true
 };
 webpackDevServer.addDevServerEntrypoints(config, options);
 const compiler = webpack(config);
